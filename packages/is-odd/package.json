@@ -6,5 +6,8 @@
     "type": "git",
     "url": "git+https://github.com/guysenpai/integrated-monorepo.git",
     "directory": "packages/is-odd"
+  },
+  "dependencies": {
+    "is-even": "*"
   }
 }
