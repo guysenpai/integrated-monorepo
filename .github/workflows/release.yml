@@ -38,4 +38,6 @@ jobs:
         shell: bash
 
       - name: Publish to npm
-        run: pnpm exec nx run-many -t deploy
+        run: |
+          pnpm exec nx affected -t build --base=latest
+          pnpm exec nx affected -t deploy --base=latest
