@@ -11,6 +11,7 @@
         "commitMessageFormat": "chore: :bookmark: release version ${version} [skip ci]",
         "tagPrefix": "",
         "noVerify": true,
+        "trackDeps": true,
         "push": true,
         "postTargets": ["workspace:github"]
       }
