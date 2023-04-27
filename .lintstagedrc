@@ -1,0 +1,8 @@
+{
+  "{apps,packages}/**/*.{ts,js,json,md,html,scss,css}": [
+    "pnpm exec nx workspace-lint",
+    "pnpm exec nx affected --target=lint --uncommitted --parallel=3 --fix=true",
+    "pnpm exec nx affected --target=test --uncommitted --parallel=3",
+    "pnpm exec nx format:write --libs-and-apps --uncommitted"
+  ]
+}
