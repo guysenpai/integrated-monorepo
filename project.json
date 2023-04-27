@@ -14,7 +14,7 @@
         "noVerify": true,
         "trackDeps": true,
         "push": true,
-        "postTargets": ["workspace:github"]
+        "postTargets": ["workspace:github", "is-even:deploy", "is-odd:deploy"]
       }
     },
     "github": {
