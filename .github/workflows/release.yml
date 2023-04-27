@@ -36,3 +36,6 @@ jobs:
           git tag -f latest
           git push origin latest --force
         shell: bash
+
+      - name: Publish to npm
+        run: pnpm exec nx run-many -t deploy
