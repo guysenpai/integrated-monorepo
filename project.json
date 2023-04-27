@@ -9,6 +9,7 @@
         "preset": "angular",
         "baseBranch": "master",
         "commitMessageFormat": "chore: :bookmark: release version ${version} [skip ci]",
+        "changelogHeader": "# Changelog",
         "tagPrefix": "",
         "noVerify": true,
         "trackDeps": true,
