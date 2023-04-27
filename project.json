@@ -1,0 +1,26 @@
+{
+  "name": "workspace",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "syncVersions": true,
+        "preset": "angular",
+        "baseBranch": "master",
+        "commitMessageFormat": "chore: :bookmark: release version ${version} [skip ci]",
+        "tagPrefix": "",
+        "noVerify": true,
+        "push": true,
+        "postTargets": ["workspace:github"]
+      }
+    },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
+      }
+    }
+  }
+}
