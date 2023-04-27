@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: [CI]
+    branches:
+      - master
+    types:
+      - completed
+
+jobs:
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && (github.event_name != 'pull_request' || (github.event.action == 'closed' && github.event.pull_request.merged == true)) && !contains(github.event.head_commit.message, '[skip ci]') }}
+    name: Release
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node and install dependencies
+        uses: ./.github/actions/setup-node-and-install-dependencies
+        with:
+          main-branch-name: master
+          node-version: '16.15.1'
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Version
+        run: pnpm exec nx affected -t version --base=latest
+        shell: bash
+
+      - name: Tag latest
+        run: |
+          git tag -f latest
+          git push origin latest --force
+        shell: bash
