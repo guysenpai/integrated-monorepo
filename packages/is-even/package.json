@@ -1,0 +1,10 @@
+{
+  "name": "@guysenpai/is-even",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guysenpai/integrated-monorepo.git",
+    "directory": "packages/is-even"
+  }
+}
