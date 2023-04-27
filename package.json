@@ -1,6 +1,6 @@
 {
   "name": "integrated-monorepo",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "prepare": "husky install"
@@ -35,5 +35,10 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "volta": {
+    "node": "16.15.1",
+    "npm": "8.11.0",
+    "yarn": "1.22.19"
   }
 }
