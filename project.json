@@ -3,22 +3,15 @@
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "targets": {
     "version": {
-      "executor": "@jscutlery/semver:version",
+      "executor": "@guysenpai/nx-release:version",
       "options": {
-        "syncVersions": true,
-        "preset": "angular",
-        "baseBranch": "master",
-        "commitMessageFormat": "chore: :bookmark: release version ${version} [skip ci]",
-        "changelogHeader": "# Changelog",
-        "tagPrefix": "",
-        "noVerify": true,
-        "trackDeps": true,
-        "push": true,
-        "postTargets": ["workspace:github", "is-even:deploy", "is-odd:deploy"]
+        "baseBranch": "main",
+        "commitMessageFormat": "chore(${projectName}): :bookmark: release version ${version}",
+        "changelogPreset": "angular"
       }
     },
-    "github": {
-      "executor": "@jscutlery/semver:github",
+    "release": {
+      "executor": "@guysenpai/nx-release:github",
       "options": {
         "tag": "${tag}",
         "notes": "${notes}"
