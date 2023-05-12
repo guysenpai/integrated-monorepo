@@ -1,4 +1,13 @@
 # Changelog
+## [0.2.4](https://github.com/guysenpai/integrated-monorepo/compare/0.2.3...0.2.4) (2023-05-12)
+
+
+### Bug Fixes
+
+* **nx-release:** 🐛 fix property does not match the schema ([37eccc5](https://github.com/guysenpai/integrated-monorepo/commit/37eccc59a0b2740891faad54aa0cfb351e84e766))
+
+
+
 ## [0.2.3](https://github.com/guysenpai/integrated-monorepo/compare/0.2.2...0.2.3) (2023-05-12)
 
 
