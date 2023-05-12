@@ -1,0 +1,268 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "title": "Nx Release Version executor",
+  "description": "Automate versioning and CHANGELOG generation.",
+  "type": "object",
+  "properties": {
+    "independent": {
+      "description": "Allow to use independent or synced versioning mode. independent versioning is used by default.",
+      "type": "boolean",
+      "default": true
+    },
+    "baseBranch": {
+      "description": "Pushes against git base branch.",
+      "type": "string",
+      "default": "main"
+    },
+    "remote": {
+      "description": "Pushed against git remote repository.",
+      "type": "string",
+      "default": "origin"
+    },
+    "push": {
+      "description": "Pushes to the git remote.",
+      "type": "boolean",
+      "default": false
+    },
+    "commitMessageFormat": {
+      "description": "A string to be used to format the auto-generated release commit message.",
+      "type": "string",
+      "default": "chore(${projectName}): :bookmark: release version ${version}"
+    },
+    "changelogHeader": {
+      "description": "Generates CHANGELOG with custom header.",
+      "type": "string"
+    },
+    "changelogPreset": {
+      "description": "Customize Conventional Changelog options.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["angular", "conventionalcommits"],
+          "default": "anguar"
+        },
+        {
+          "$ref": "#/definitions/conventionalChangelogConfiguration"
+        }
+      ]
+    },
+    "releaseType": {
+      "description": "Manually increment the version by setting this.",
+      "type": "string"
+    },
+    "allowEmptyRelease": {
+      "description": "Allow bumping versions even if there are no changes in the library.",
+      "type": "boolean",
+      "default": false
+    },
+    "tagCommand": {
+      "description": "A custom command used when applying git tags.",
+      "type": "string"
+    },
+    "tagPrefix": {
+      "description": "Tag version prefix. Default is 'v' with the synced mode and '${projectName}@' in independent mode.",
+      "oneOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "preid": {
+      "description": "Use the next semantic prerelease version with a specific prerelease identifier.",
+      "type": "string"
+    },
+    "trackDeps": {
+      "description": "Includes the project's dependencies in calculating a recommended version bump.",
+      "type": "boolean",
+      "default": false
+    },
+    "postTargets": {
+      "description": "Specify the targets to run after a new version was successfully created.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "description": "The target to run",
+        "type": "string"
+      }
+    },
+    "skipRootChangelog": {
+      "description": "Skip root CHANGELOG generation containing all monorepo changes (only with synced mode).",
+      "type": "boolean",
+      "default": false
+    },
+    "skipProjectChangelog": {
+      "description": "Skip project CHANGELOG generation (only with synced mode).",
+      "type": "boolean",
+      "default": false
+    },
+    "amend": {
+      "description": "Allow to commit all changes on current commit, instead of add new one.",
+      "type": "boolean",
+      "default": false
+    },
+    "skipCommit": {
+      "description": "Allow to skip making a commit when bumping a version and put the tag on last existent commit.",
+      "type": "boolean",
+      "default": false
+    },
+    "skipCommitTypes": {
+      "description": "Specify array of commit types to be ignored when calculating next version bump.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "description": "The commit type to ignore.",
+        "type": "string"
+      }
+    },
+    "skipTag": {
+      "description": "Allow to skip puting tag on commit when bumping a version.",
+      "type": "boolean",
+      "default": false
+    },
+    "skipPrivate": {
+      "description": "Allow to skip bumping versions, making commits, tagging releases, and generating CHANGELOGs for private packages.",
+      "type": "boolean",
+      "default": false
+    },
+    "noVerify": {
+      "description": "Bypass pre-commit or commit-msg git hooks during the commit phase.",
+      "type": "boolean",
+      "default": false
+    },
+    "dryRun": {
+      "description": "See what commands should be run, without committing to git or updating files.",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "definitions": {
+    "conventionalChangelogConfiguration": {
+      "$schema": "http://json-schema.org/schema",
+      "title": "Conventional Changelog Configuration",
+      "description": "Describes the configuration options supported by conventional-config for upstream tooling.",
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "description": "A base preset name to be customized.",
+          "type": "string",
+          "default": "angular"
+        },
+        "header": {
+          "description": "A string to be used as the main header section of the CHANGELOG.",
+          "type": "string",
+          "default": "# Changelog\n\n"
+        },
+        "types": {
+          "description": "An array of `type` objects representing the explicitly supported commit message types, and whether they should show up in generated CHANGELOGs",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/type"
+          },
+          "default": [
+            {
+              "type": "feat",
+              "section": "Features"
+            },
+            {
+              "type": "fix",
+              "section": "Bug Fixes"
+            },
+            {
+              "type": "chore",
+              "hidden": true
+            },
+            {
+              "type": "docs",
+              "hidden": true
+            },
+            {
+              "type": "style",
+              "hidden": true
+            },
+            {
+              "type": "refactor",
+              "hidden": true
+            },
+            {
+              "type": "perf",
+              "hidden": true
+            },
+            {
+              "type": "test",
+              "hidden": true
+            }
+          ]
+        },
+        "preMajor": {
+          "description": "Boolean indicating whether or not the action being run (generating CHANGELOG, recommendedBump, etc.) is being performed for a pre-major release (`<1.0.0`).\nThis config setting will generally be set by tooling and not a user.",
+          "type": "boolean",
+          "default": false
+        },
+        "commitUrlFormat": {
+          "description": "A URL representing a specific commit at a hash.",
+          "type": "string",
+          "default": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}"
+        },
+        "compareUrlFormat": {
+          "description": "A URL representing the comparison between two git SHAs.",
+          "type": "string",
+          "default": "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}"
+        },
+        "issueUrlFormat": {
+          "description": "A URL representing the issue format (allowing a different URL format to be swapped in for Gitlab, Bitbucket, etc).",
+          "type": "string",
+          "default": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}"
+        },
+        "userUrlFormat": {
+          "description": "A URL representing the user's profile URL on Github, Gitlab, etc. This URL is used for substituting `@bcoe` with `https://github.com/bcoe` in commit messages.",
+          "type": "string",
+          "default": "{{host}}/{{user}}"
+        },
+        "releaseCommitMessageFormat": {
+          "description": "A string to be used to format the auto-generated release commit message.",
+          "type": "string",
+          "default": "chore(release): {{currentTag}}"
+        },
+        "issuePrefixes": {
+          "description": "An array of prefixes used to detect references to issues",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": ["#"]
+        }
+      }
+    },
+    "type": {
+      "description": "An object that describes a commit type's settings in the CHANGELOG",
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "description": "A string used to match `<type>`s used in the Conventional Commits convention.",
+          "type": "string"
+        },
+        "scope": {
+          "description": "A string used to match `[optional scope]` used in the Conventional Commits convention.",
+          "type": "string"
+        },
+        "section": {
+          "description": "The section where the matched commit `type` will display in the CHANGELOG.",
+          "type": "string"
+        },
+        "hidden": {
+          "description": "Set to `true` to hide matched commit `type`s in the CHANGELOG.",
+          "type": "string"
+        }
+      },
+      "oneOf": [
+        {
+          "required": ["section"]
+        },
+        {
+          "required": ["hidden"]
+        }
+      ]
+    }
+  },
+  "required": []
+}

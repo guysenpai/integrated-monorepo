@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "title": "Nx Release Github executor",
+  "description": "Create an official Github release",
+  "type": "object",
+  "properties": {
+    "tag": {
+      "description": "Create a new release from given tag.",
+      "type": "string"
+    },
+    "target": {
+      "description": "Target branch or full commit SHA (default: main branch).",
+      "type": "string"
+    },
+    "files": {
+      "description": "A list of asset files may given to upload to the new release.",
+      "type": "array"
+    },
+    "notes": {
+      "description": "Release notes.",
+      "type": "string"
+    },
+    "notesFile": {
+      "description": "Read release notes from file.",
+      "type": "string"
+    },
+    "draft": {
+      "description": "Save the release as a draft instead of publishing it.",
+      "type": "boolean"
+    },
+    "title": {
+      "description": "Release title.",
+      "type": "string"
+    },
+    "prerelease": {
+      "description": "Mark the release as prerelease.",
+      "type": "boolean"
+    },
+    "discussionCategory": {
+      "description": "Start a discussion in the specified category.",
+      "type": "string"
+    },
+    "repo": {
+      "description": "Select another repository using the [HOST/]OWNER/REPO format.",
+      "type": "string"
+    },
+    "generateNotes": {
+      "description": "Automatically generate title and notes for the release.",
+      "type": "boolean"
+    },
+    "notesStartTag": {
+      "description": "Tag to use as the starting point for generating release notes.",
+      "type": "string"
+    },
+    "verifyTag": {
+      "description": "Abort in case the git tag doesn't already exist in the remote repository.",
+      "type": "boolean"
+    },
+    "latest": {
+      "description": "Mark this release as \"Latest\".",
+      "type": "boolean"
+    },
+    "assets": {
+      "description": "A list of assets to upload",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "properties": {
+              "path": {
+                "description": "Path of the asset",
+                "type": "string"
+              },
+              "name": {
+                "description": "Name of the asset",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": ["tag"]
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "NxReleaseInstall",
+  "title": "Nx Release Install",
+  "description": "Initialize the @guysenpai/nx-release plugin.",
+  "type": "object",
+  "properties": {
+    "independent": {
+      "description": "Allows you to increment packages version independently of each other.",
+      "type": "boolean",
+      "default": false,
+      "x-prority": "important"
+    },
+    "baseBranch": {
+      "description": "Base of the current branch.",
+      "type": "string",
+      "default": "main",
+      "alias": "base"
+    },
+    "projects": {
+      "description": "Which projects should be versioned independently.",
+      "type": "array",
+      "x-dropdown": "projects"
+    },
+    "commitMessageFormat": {
+      "description": "A string to be used to format the auto-generated release commit message.",
+      "type": "string",
+      "default": "chore(${projectName}): :bookmark: release version ${version}"
+    },
+    "enforceConventionalCommits": {
+      "description": "Install & configure commitlint, lint-staged and husky.",
+      "type": "boolean",
+      "default": true,
+      "x-prompt": "Would you want to enforce conventional commits?"
+    },
+    "changelogPreset": {
+      "description": "Customize changelog generation and lint rules.",
+      "type": "string",
+      "enum": ["angular", "conventionalcommits"],
+      "default": "angular",
+      "alias": "preset",
+      "x-prompt": {
+        "message": "Which changelog preset would you want to use?",
+        "type": "list",
+        "items": [
+          {
+            "value": "angular",
+            "label": "Angular [https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format]"
+          },
+          {
+            "value": "conventionalcommits",
+            "label": "Coventional commits [https://www.conventionalcommits.org/en/v1.0.0/]"
+          }
+        ]
+      }
+    },
+    "createRelease": {
+      "description": "Allows to create a git release based on the change packages",
+      "type": "string",
+      "enum": ["github", "gitlab"],
+      "x-prompt": {
+        "message": "Which git repository for release would you want to use?",
+        "type": "list",
+        "items": [
+          {
+            "value": "github",
+            "label": "Github release"
+          },
+          {
+            "value": "gitlab",
+            "label": "Gitlab release"
+          }
+        ]
+      }
+    },
+    "publish": {
+      "description": "Allows to publish all buildable packages to package registry",
+      "type": "boolean",
+      "default": false,
+      "x-prompt": {
+        "message": "Would you want to publish your libraries to the package registry?",
+        "type": "boolean"
+      }
+    },
+    "skipInstall": {
+      "description": "Skip install dependencies",
+      "type": "boolean",
+      "default": false,
+      "x-priority": "internal"
+    },
+    "skipCommit": {
+      "description": "Allows to skip commit changes when bumping a version",
+      "type": "boolean",
+      "default": false,
+      "x-priority": "internal"
+    },
+    "skipTag": {
+      "description": "Allows to skip making a tag when bumping a version",
+      "type": "boolean",
+      "default": false,
+      "x-priority": "internal"
+    }
+  },
+  "additionalProperties": false,
+  "dependencies": {
+    "createRelease": ["enforceConventionalCommits"]
+  }
+}

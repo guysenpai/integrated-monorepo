@@ -1,3 +1,4 @@
 {
-  "conventionalCommits.scopes": ["is-even", "is-odd"]
+  "conventionalCommits.scopes": ["is-even", "is-odd", "nx-release"],
+  "eslint.validate": ["json"]
 }

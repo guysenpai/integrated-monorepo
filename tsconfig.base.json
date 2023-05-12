@@ -7,6 +7,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
@@ -16,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@guysenpai/is-even": ["packages/is-even/src/index.ts"],
-      "@guysenpai/is-odd": ["packages/is-odd/src/index.ts"]
+      "@guysenpai/is-odd": ["packages/is-odd/src/index.ts"],
+      "@guysenpai/nx-release": ["packages/nx-release/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

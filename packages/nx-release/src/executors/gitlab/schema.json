@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "title": "Nx Release Gitlab executor",
+  "description": "Create an official Gitlab release",
+  "type": "object",
+  "properties": {
+    "tag": {
+      "description": "Create a new release from given tag.",
+      "type": "string"
+    },
+    "ref": {
+      "description": "If a tag specified doesn't exist, the release is created from ref and tagged with the specified tag name. It can be a commit SHA, another tag name, or a branch name.",
+      "type": "string"
+    },
+    "assets": {
+      "description": "A JSON representation of assets links (or an array of assets links).",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "properties": {
+              "url": {
+                "description": "URL of the asset",
+                "type": "string"
+              },
+              "name": {
+                "description": "Name of the asset",
+                "type": "string"
+              },
+              "type": {
+                "description": "Type of the asset",
+                "type": "string",
+                "enum": ["other", "runbook", "image", "package"]
+              },
+              "filepath": {
+                "description": "Path of the asset file",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "name": {
+      "description": "The release name or title.",
+      "type": "string"
+    },
+    "notes": {
+      "description": "The release notes/description. You can use Markdown.",
+      "type": "string"
+    },
+    "notesFile": {
+      "description": "Read release notes file.",
+      "type": "string"
+    },
+    "milestones": {
+      "description": "The title of each milestone the release is associated with.",
+      "type": "string"
+    },
+    "releasedAt": {
+      "description": "The date when the release is/was ready. Defaults to the current datetime. Expected in ISO 8601 format (2019-03-15T08:00:00Z).",
+      "type": "string"
+    },
+    "repo": {
+      "description": "Select another repository using the `OWNER/REPO` or `GROUP/NAMESPACE/REPO` format or full URL or git URL",
+      "type": "string"
+    }
+  },
+  "required": ["tag"]
+}
