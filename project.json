@@ -3,7 +3,7 @@
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "targets": {
     "version": {
-      "executor": "@guysenpai/nx-release:version",
+      "executor": "dist/packages/nx-release:version",
       "options": {
         "baseBranch": "master",
         "commitMessageFormat": "chore: :bookmark: release version ${version} [skip ci]",
@@ -17,7 +17,7 @@
       }
     },
     "release": {
-      "executor": "@guysenpai/nx-release:github",
+      "executor": "dist/packages/nx-release:github",
       "options": {
         "tag": "${tag}",
         "notes": "${notes}"
