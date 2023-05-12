@@ -1,7 +1,8 @@
-import { logger, readProjectConfiguration, updateProjectConfiguration, type Tree } from '@nrwl/devkit';
+import { logger, updateProjectConfiguration, type Tree } from '@nrwl/devkit';
 
 import { createPublishTarget } from './create-target';
 import { getPublishableProjects } from './project';
+import { updatePostTargets } from './update-post-targets';
 
 /**
  * Setup publish target for synced mode
@@ -25,11 +26,7 @@ export function setupWorkspacePublishTarget(tree: Tree): void {
       updateProjectConfiguration(tree, projectName, project);
 
       // Add target to workspace version postTargets
-      const workspace = readProjectConfiguration(tree, 'workspace');
-      const targetOptions = workspace.targets.version.options ?? {};
-      const postTargets: string[] = targetOptions.postTargets ?? [];
-      postTargets.push(`${projectName}:publish`);
-      updateProjectConfiguration(tree, 'workspace', workspace);
+      updatePostTargets(tree, 'workspace', `${projectName}:publish`);
     }
   });
 }

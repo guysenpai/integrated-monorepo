@@ -6,6 +6,7 @@ import { createReleaseTarget, createVersionTarget } from './create-target';
 import type { InstallGeneratorSchema } from '../schema';
 import { createPublishTarget } from './create-target';
 import { isPublishable } from './project';
+import { updatePostTargets } from './update-post-targets';
 
 export type ProjectDefinition = ProjectConfiguration & { projectName: string };
 
@@ -38,26 +39,25 @@ export function updateProjects(
 ): void {
   getProjects(tree).forEach((project, projectName) => {
     if (predicate(projectName)) {
-      const targets = project.targets ?? {};
-      targets.version = createVersionTarget(options);
+      updateProjectConfiguration(tree, projectName, {
+        ...project,
+        targets: {
+          ...(project.targets ?? {}),
+          version: createVersionTarget(options),
+          ...(options.createRelease ? { release: createReleaseTarget(options) } : {}),
+          ...(options.publish && isPublishable(project) ? { publish: createPublishTarget() } : {})
+        }
+      });
 
-      // Setup `release` target
+      // Add `release` target to version's postTarget option
       if (options.createRelease) {
-        targets.release = createReleaseTarget(options);
-
-        // Add project `release` target to version postTargets options
-        targets.version = _updateVersionPostTargets(targets, `${projectName}:release`);
+        updatePostTargets(tree, projectName, `${projectName}:release`);
       }
 
-      // Setup `publish` target for publishable projects
+      // Add `publish` target to version's postTarget option for publishable projects
       if (options.publish && isPublishable(project)) {
-        targets.publish = createPublishTarget();
-
-        // Add project `publish` target to version postTargets options
-        targets.version = _updateVersionPostTargets(targets, `${projectName}:publish`);
+        updatePostTargets(tree, projectName, `${projectName}:publish`);
       }
-
-      updateProjectConfiguration(tree, projectName, project);
     }
   });
 }
@@ -84,27 +84,4 @@ export async function updateWorkspaceFromPrompt(tree: Tree, options: InstallGene
   const answers = await createPrompt(projects);
 
   return updateProjects(tree, options, projectName => answers.projects.includes(projectName));
-}
-
-/**
- * Add target string to post targets
- *
- * @param targets
- * @param targetString
- * @returns
- * @private
- */
-function _updateVersionPostTargets(targets: ProjectConfiguration['targets'], targetString: string) {
-  // return {
-  //   ...(targets.version ?? {}),
-  //   options: {
-  //     ...(targets.version.options ?? {}),
-  //     postTargets: [...(targets.version.options?.postTargets ?? []), targetString]
-  //   }
-  // };
-  const targetOptions = targets.version.options ?? {};
-  const postTargets: string[] = targetOptions.postTargets ?? [];
-  postTargets.push(targetString);
-
-  return targets.version;
 }
