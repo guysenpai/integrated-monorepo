@@ -28,6 +28,7 @@ export default async function runExecutor(
     publish$.pipe(
       map(() => ({ success: true })),
       catchError(error => {
+        console.dir(error);
         logger.error(error);
         return of({ success: false });
       })
