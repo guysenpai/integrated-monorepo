@@ -15,7 +15,7 @@
       }
     },
     "publish": {
-      "executor": "dist/packages/nx-release:npm",
+      "executor": "./dist/packages/nx-release:npm",
       "options": {
         "access": "public",
         "targetBuild": "build",
