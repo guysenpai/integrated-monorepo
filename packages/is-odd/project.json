@@ -15,11 +15,12 @@
       }
     },
     "publish": {
-      "executor": "nx:run-commands",
+      "executor": "@guysenpai/nx-release:npm",
       "options": {
-        "command": "node tools/scripts/publish.mjs is-odd {args.ver} {args.tag}"
-      },
-      "dependsOn": ["build"]
+        "access": "public",
+        "targetBuild": "build",
+        "dryRun": "${dryRun}"
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
