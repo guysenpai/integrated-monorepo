@@ -43,7 +43,7 @@
     },
     "dryRun": {
       "description": "See what commands should be run, without making any changes.",
-      "type": "boolean",
+      "type": ["boolean", "string"],
       "default": false
     }
   },

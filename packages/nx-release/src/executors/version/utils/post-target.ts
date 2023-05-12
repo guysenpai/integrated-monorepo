@@ -67,7 +67,6 @@ function _getTargetOptions({
   context: Record<string, unknown>;
 }): Record<string, unknown> {
   return Object.entries(options).reduce((optionsAccumulator, [option, value]) => {
-    console.log(value);
     const resolvedValue = Array.isArray(value)
       ? value.map(_element =>
           typeof _element !== 'object'

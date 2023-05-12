@@ -201,8 +201,7 @@ export default async function version(
 }
 
 function _toErrorMessage(error: Error): string {
-  console.log(error.message);
-  return error.stack ?? error.toString();
+  return error.stack ?? error.message;
 }
 
 /**
