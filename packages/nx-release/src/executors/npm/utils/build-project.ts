@@ -29,7 +29,6 @@ export function buildProject({
     const targetDescription = parseTargetString(targetString, context.projectGraph);
 
     if (noBuild) {
-      console.log(noBuild);
       logger.info(`Skip ${context.projectName} building`);
       return of(targetDescription);
     }

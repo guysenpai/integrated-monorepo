@@ -5,9 +5,15 @@
     "version": {
       "executor": "@guysenpai/nx-release:version",
       "options": {
-        "baseBranch": "main",
-        "commitMessageFormat": "chore(${projectName}): :bookmark: release version ${version}",
-        "changelogPreset": "angular"
+        "baseBranch": "master",
+        "commitMessageFormat": "chore: :bookmark: release version ${version} [skip ci]",
+        "changelogPreset": "angular",
+        "changelogHeader": "# Changelog",
+        "tagPrefix": "",
+        "noVerify": true,
+        "trackDeps": true,
+        "push": true,
+        "postTargets": ["workspace:release", "is-even:publish", "is-odd:publish", "nx-release:publish"]
       }
     },
     "release": {

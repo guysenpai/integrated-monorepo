@@ -6,6 +6,7 @@ import { createReleaseTarget, createVersionTarget } from './utils/create-target'
 import { updateWorkspaceFromPrompt, updateWorkspaceFromSchema } from './utils/workspace';
 
 import type { InstallGeneratorSchema } from './schema';
+import { updatePostTargets } from './utils/update-post-targets';
 
 export default async function install(tree: Tree, options: InstallGeneratorSchema): Promise<() => void> {
   // Independant versioning
@@ -23,6 +24,10 @@ export default async function install(tree: Tree, options: InstallGeneratorSchem
         ...(options.createRelease ? { release: createReleaseTarget(options) } : {})
       }
     });
+
+    if (options.createRelease) {
+      updatePostTargets(tree, 'workspace', `workspace:release`);
+    }
 
     if (options.publish) {
       setupWorkspacePublishTarget(tree);
