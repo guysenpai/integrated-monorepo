@@ -1,0 +1,27 @@
+{
+  "name": "@guysenpai/nx-release",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "generators": "./generators.json",
+  "executors": "./executors.json",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "conventional-changelog": "^3.1.25",
+    "conventional-recommended-bump": "^6.1.0",
+    "detect-indent": "^6.1.0",
+    "inquirer": "8.2.5",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/conventional-changelog": "^3.1.1",
+    "@types/conventional-recommended-bump": "^6.1.0",
+    "@types/inquirer": "8.2.6",
+    "@types/rimraf": "^4.0.5",
+    "@types/semver": "^7.3.13",
+    "@types/standard-version": "^7.0.1",
+    "@types/tmp": "^0.2.3"
+  },
+  "peerDependencies": {
+    "@nrwl/devkit": "^15.9.2"
+  }
+}

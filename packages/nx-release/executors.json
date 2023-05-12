@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "version": {
+      "implementation": "./src/executors/version/executor",
+      "schema": "./src/executors/version/schema.json",
+      "description": "Automate versioning and changelog generation."
+    },
+    "github": {
+      "implementation": "./src/executors/github/executor",
+      "schema": "./src/executors/github/schema.json",
+      "description": "Create an official Github release"
+    },
+    "gitlab": {
+      "implementation": "./src/executors/gitlab/executor",
+      "schema": "./src/executors/gitlab/schema.json",
+      "description": "Create an official Gitlab release"
+    },
+    "npm": {
+      "implementation": "./src/executors/npm/executor",
+      "schema": "./src/executors/npm/schema.json",
+      "description": "Publish libraries to the package registry"
+    }
+  },
+  "builders": {
+    "version": {
+      "implementation": "./src/executors/version/builder",
+      "schema": "./src/executors/version/schema.json",
+      "description": "Automate versioning and changelog generation."
+    },
+    "github": {
+      "implementation": "./src/executors/github/builder",
+      "schema": "./src/executors/github/schema.json",
+      "description": "Create an official Github release"
+    },
+    "gitlab": {
+      "implementation": "./src/executors/gitlab/builder",
+      "schema": "./src/executors/gitlab/schema.json",
+      "description": "Create an official Gitlab release"
+    },
+    "npm": {
+      "implementation": "./src/executors/npm/builder",
+      "schema": "./src/executors/npm/schema.json",
+      "description": "Publish libraries to the package registry"
+    }
+  }
+}

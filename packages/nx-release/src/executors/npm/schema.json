@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "cli": "nx",
+  "title": "Nx Release Npm executor",
+  "description": "Publish libraries to the package registry",
+  "type": "object",
+  "properties": {
+    "distFolderPath": {
+      "description": "The dist folder path relative to workspace root. This is useful when the library dist folder cannot be detected automatically.",
+      "type": "string"
+    },
+    "buildTarget": {
+      "description": "The build target name used for building the library with the configuration option. (e.g. 'build:production', 'build-esbuild'). If not specified, 'build' target should be used by default.",
+      "type": "string"
+    },
+    "noBuild": {
+      "description": "Skip build process.",
+      "type": "boolean",
+      "default": false
+    },
+    "version": {
+      "description": "The package version to publish.",
+      "type": "string"
+    },
+    "tag": {
+      "description": "Publishes the package with the specified tag. By default, the `latest` is updated.",
+      "type": "string"
+    },
+    "access": {
+      "description": "Tells the registry whether the published package should be public or restricted.",
+      "type": "string",
+      "enum": ["public", "restricted"],
+      "default": "public"
+    },
+    "otp": {
+      "description": "When publishing packages that require two-factor authentication, this option can specify a one-time password.",
+      "type": ["string", "number"]
+    },
+    "registry": {
+      "description": "The base URL of the npm package registry to use.",
+      "type": "string"
+    },
+    "dryRun": {
+      "description": "See what commands should be run, without making any changes.",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": []
+}

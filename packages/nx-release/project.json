@@ -1,0 +1,76 @@
+{
+  "name": "nx-release",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/nx-release/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-release",
+        "main": "packages/nx-release/src/index.ts",
+        "tsConfig": "packages/nx-release/tsconfig.lib.json",
+        "assets": [
+          "packages/nx-release/*.md",
+          {
+            "input": "./packages/nx-release/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-release/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-release",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-release",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/nx-release/**/*.ts",
+          "packages/nx-release/generators.json",
+          "packages/nx-release/executors.json",
+          "packages/nx-release/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/nx-release/jest.config.ts",
+        "passWithNoTests": true,
+        "detectOpenHandles": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "publish": {
+      "executor": "@guysenpai/nx-release:npm",
+      "options": {
+        "access": "public",
+        "targetBuild": "build",
+        "dryRun": "${dryRun}"
+      }
+    }
+  },
+  "tags": []
+}
