@@ -62,6 +62,7 @@ export function versionWorkspace({
   skipProject: boolean;
 } & CommonVersionOptions) {
   const projectRoots = getProjectRoots(options.workspaceRoot, options.workspace);
+  console.log(projectRoots);
 
   return forkJoin([
     _generateChangelogs({
@@ -224,9 +225,6 @@ function _generateChangelogs({
     .filter(projectRoot => !shouldSkipPrivateProject(projectRoot, skipPrivate))
     .filter(projectRoot => !(skipProjectChangelog && projectRoot !== workspaceRoot))
     .filter(projectRoot => !(skipRootChangelog && projectRoot === workspaceRoot));
-
-  console.log(projectRoots, workspaceRoot);
-  console.log(changelogRoots);
 
   if (changelogRoots.length === 0) {
     return of([]);

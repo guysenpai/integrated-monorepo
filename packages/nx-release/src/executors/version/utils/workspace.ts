@@ -26,6 +26,7 @@ export function getProject(context: ExecutorContext): ProjectConfiguration {
  */
 export function getProjectRoots(workspaceRoot: string, workspace?: ProjectsConfigurations): string[] {
   const projects = Object.values(workspace?.projects ?? {});
+  console.log(projects);
 
   if (projects.length === 0) {
     throw new Error('No projects found in workspace');
