@@ -9,14 +9,8 @@ import type { InstallGeneratorSchema } from './schema';
 import { updatePostTargets } from './utils/update-post-targets';
 
 export default async function install(tree: Tree, options: InstallGeneratorSchema): Promise<() => void> {
-  // Independant versioning
-  if (options.independent) {
-    options.projects && options.projects.length > 0
-      ? updateWorkspaceFromSchema(tree, options)
-      : await updateWorkspaceFromPrompt(tree, options);
-  }
   // Synced versioning
-  else {
+  if (options.syncVersions) {
     addProjectConfiguration(tree, 'workspace', {
       root: '.',
       targets: {
@@ -32,6 +26,12 @@ export default async function install(tree: Tree, options: InstallGeneratorSchem
     if (options.publish) {
       setupWorkspacePublishTarget(tree);
     }
+  }
+  // Independant versioning
+  else {
+    options.projects && options.projects.length > 0
+      ? updateWorkspaceFromSchema(tree, options)
+      : await updateWorkspaceFromPrompt(tree, options);
   }
 
   addDependencies(tree, options);

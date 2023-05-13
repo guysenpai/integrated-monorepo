@@ -55,7 +55,7 @@ export function createPublishTarget(production?: boolean): TargetConfiguration {
  * @private
  */
 function _createTargetOptions(options: InstallGeneratorSchema): TargetConfiguration['options'] {
-  const targetOptions = ['independent', 'baseBranch', 'commitMessageFormat', 'changelogPreset'];
+  const targetOptions = ['syncVersions', 'baseBranch', 'changelogPreset', 'commitMessageFormat'];
 
   return targetOptions
     .filter(key => Boolean(options[key]))

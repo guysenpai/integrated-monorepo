@@ -62,8 +62,6 @@ export function versionWorkspace({
   skipProject: boolean;
 } & CommonVersionOptions) {
   const projectRoots = getProjectRoots(options.workspaceRoot, options.workspace);
-  console.log('projectRoots =>', projectRoots);
-  console.log('projects =>', options.workspace.projects);
 
   return forkJoin([
     _generateChangelogs({

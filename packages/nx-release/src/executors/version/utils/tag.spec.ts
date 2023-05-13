@@ -6,7 +6,7 @@ describe('formatTagPrefix', () => {
       formatTagPrefix({
         tagVersionPrefix: 'testtagPrefix',
         projectName: 'testProjectName',
-        independent: false
+        syncVersions: true
       })
     ).toBe('testtagPrefix');
   });
@@ -16,7 +16,7 @@ describe('formatTagPrefix', () => {
       formatTagPrefix({
         tagVersionPrefix: undefined,
         projectName: 'testProjectName',
-        independent: false
+        syncVersions: true
       })
     ).toBe('v');
   });
@@ -26,7 +26,7 @@ describe('formatTagPrefix', () => {
       formatTagPrefix({
         tagVersionPrefix: undefined,
         projectName: 'testProjectName',
-        independent: true
+        syncVersions: false
       })
     ).toBe('testProjectName@');
   });

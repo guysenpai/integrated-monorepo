@@ -10,8 +10,8 @@ Using Nx:
 
 ```sh
 npm install -D @guysenpai/nx-release
-nx g @guysenpai/nx-release:install # synced mode (default)
-nx g @guysenpai/nx-release:install --independent # independent mode
+nx g @guysenpai/nx-release:install # independent versioning
+nx g @guysenpai/nx-release:install --syncVersions # synced versioning
 ```
 
 Using Angular CLI:
@@ -22,13 +22,13 @@ ng add @guysenpai/nx-release
 
 This package allows you to manage your Nx workspace using of two modes: **Synced** or **Independent**.
 
-#### Synced/locked mode (default)
-
-Allow multiple projects to be versioned in a synced/locked mode. This mode is useful if you want to automatically tie package versions together.
-
-#### Independent mode
+#### Independent mode (default)
 
 Allow multiple projects to be versioned independently. This way you release only what you want and consumers don't get updates they don't need.
+
+#### Synced/locked mode
+
+Allow multiple projects to be versioned in a synced/locked mode. This mode is useful if you want to automatically tie package versions together.
 
 ## Usage
 
@@ -72,7 +72,7 @@ Important: merge commits messages are ignored by tool when calculating next vers
 
 | name                   | type               | default     | description                                                                                                      |
 | ---------------------- | ------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------- |
-| `independent`          | `boolean`          | `false`     | Allow to use independent or synced versioning mode. independent versioning is used by default.                   |
+| `syncVersions`         | `boolean`          | `false`     | Allow to use independent or synced versioning mode. independent versioning is used by default.                   |
 | `baseBranch`           | `string`           | `'main'`    | Pushes against git base branch.                                                                                  |
 | `commitMessageFormat`  | `string`           | `undefined` | A string to be used to format the auto-generated release commit message.                                         |
 | `changelogHeader`      | `string`           | `undefined` | Generates CHANGELOG with custom header.                                                                          |

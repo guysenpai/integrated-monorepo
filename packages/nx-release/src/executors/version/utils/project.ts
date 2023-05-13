@@ -89,8 +89,6 @@ export function shouldSkipPrivateProject(projectRoot: string, skipPrivate: boole
   }
 
   const packageJson = JSON.parse(readFileSync(path, { encoding: 'utf-8' }));
-  console.log('package.json =>', packageJson);
-  console.log('skipPrivate', skipPrivate);
 
   return packageJson?.private && skipPrivate;
 }

@@ -6,8 +6,8 @@
   "description": "Initialize the @guysenpai/nx-release plugin.",
   "type": "object",
   "properties": {
-    "independent": {
-      "description": "Allows you to increment packages version independently of each other.",
+    "syncVersions": {
+      "description": "Allows you to sync versions between packages.",
       "type": "boolean",
       "default": false,
       "x-prority": "important"
