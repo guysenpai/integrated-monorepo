@@ -1,4 +1,8 @@
 # Changelog
+## [0.2.6](https://github.com/guysenpai/integrated-monorepo/compare/0.2.5...0.2.6) (2023-05-13)
+
+
+
 ## [0.2.5](https://github.com/guysenpai/integrated-monorepo/compare/0.2.4...0.2.5) (2023-05-13)
 
 
