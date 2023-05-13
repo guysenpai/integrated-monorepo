@@ -83,15 +83,14 @@ export function updatePackageJson({
  */
 export function shouldSkipPrivateProject(projectRoot: string, skipPrivate: boolean): boolean {
   const path = getPackageJsonPath(projectRoot);
+  console.log(path);
+  console.log(existsSync(path));
 
-  if (existsSync(path)) {
-    return false;
+  if (!existsSync(path)) {
+    return true;
   }
 
   const packageJson = JSON.parse(readFileSync(path, { encoding: 'utf-8' }));
-
-  console.log(packageJson);
-  console.log(skipPrivate);
 
   return packageJson?.private && skipPrivate;
 }
