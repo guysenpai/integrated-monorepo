@@ -225,6 +225,7 @@ function _generateChangelogs({
     .filter(projectRoot => !(skipProjectChangelog && projectRoot !== workspaceRoot))
     .filter(projectRoot => !(skipRootChangelog && projectRoot === workspaceRoot));
 
+  console.log(projectRoots, workspaceRoot);
   console.log(changelogRoots);
 
   if (changelogRoots.length === 0) {
