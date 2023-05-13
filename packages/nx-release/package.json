@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guysenpai/integrated-monorepo.git",
-    "directory": "packages/nx-monorepo"
+    "directory": "packages/nx-release"
   },
   "dependencies": {
     "chalk": "^4.1.2",
