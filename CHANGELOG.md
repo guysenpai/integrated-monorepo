@@ -1,4 +1,13 @@
 # Changelog
+## [0.2.5](https://github.com/guysenpai/integrated-monorepo/compare/0.2.4...0.2.5) (2023-05-13)
+
+
+### Bug Fixes
+
+* **nx-release:** 🔊 add log to generateChangelogs ([842f32e](https://github.com/guysenpai/integrated-monorepo/commit/842f32e10ab35b2e7c3e6e9ba600ca037a0d5390))
+
+
+
 ## [0.2.4](https://github.com/guysenpai/integrated-monorepo/compare/0.2.3...0.2.4) (2023-05-12)
 
 
