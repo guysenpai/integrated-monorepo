@@ -10,8 +10,7 @@ Using Nx:
 
 ```sh
 npm install -D @guysenpai/nx-release
-nx g @guysenpai/nx-release:install # independent versioning
-nx g @guysenpai/nx-release:install --syncVersions # synced versioning
+nx g @guysenpai/nx-release:install
 ```
 
 Using Angular CLI:
