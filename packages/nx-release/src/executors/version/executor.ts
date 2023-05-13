@@ -20,7 +20,7 @@ export default async function version(
   context: ExecutorContext
 ): Promise<{ success: boolean }> {
   const {
-    independent,
+    syncVersions,
     baseBranch,
     commitMessageFormat,
     changelogHeader,
@@ -74,7 +74,7 @@ export default async function version(
   const tagPrefix = formatTagPrefix({
     tagVersionPrefix,
     projectName,
-    independent
+    syncVersions
   });
   const newVersion$ = tryBump({
     changelogPreset: changelogPreset as string,
@@ -84,7 +84,7 @@ export default async function version(
     tagVersionPrefix,
     releaseType,
     preid,
-    independent,
+    syncVersions,
     allowEmptyRelease,
     skipCommitTypes,
     skipProject,
@@ -138,9 +138,9 @@ export default async function version(
         workspace: context.projectsConfigurations
       };
       const version$ = defer(() =>
-        independent
-          ? versionProject({ ...options, skipProject, projectRoot })
-          : versionWorkspace({ ...options, skipProject, projectRoot, skipRootChangelog })
+        syncVersions
+          ? versionWorkspace({ ...options, skipProject, projectRoot, skipRootChangelog })
+          : versionProject({ ...options, skipProject, projectRoot })
       );
       const push$ = defer(() =>
         tryPush({
@@ -170,7 +170,7 @@ export default async function version(
             }
           })
         );
-      const changelogPath = getChangelogPath(independent ? projectRoot : workspaceRoot);
+      const changelogPath = getChangelogPath(syncVersions ? workspaceRoot : projectRoot);
 
       return version$.pipe(
         calculateChangelogChanges({ changelogHeader, changelogPath }),
@@ -213,7 +213,7 @@ function _toErrorMessage(error: Error): string {
 function _normalizeOptions(options: VersionExecutorSchema) {
   return {
     ...options,
-    independent: options.independent as boolean,
+    syncVersions: options.syncVersions as boolean,
     baseBranch: options.baseBranch as string,
     commitMessageFormat: options.commitMessageFormat as string,
     changelogHeader: options.changelogHeader || defaultHeader,

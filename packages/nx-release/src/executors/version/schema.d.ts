@@ -4,7 +4,7 @@ import type { ReleaseType } from 'semver';
 export type ChangelogPreset = 'angular' | 'conventionalcommits' | ({ name: string } & Config);
 
 export interface VersionExecutorSchema {
-  independent?: boolean;
+  syncVersions?: boolean;
   baseBranch?: string;
   commitMessageFormat?: string;
   changelogHeader?: string;

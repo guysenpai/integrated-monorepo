@@ -6,10 +6,10 @@
   "description": "Automate versioning and CHANGELOG generation.",
   "type": "object",
   "properties": {
-    "independent": {
+    "syncVersions": {
       "description": "Allow to use independent or synced versioning mode. independent versioning is used by default.",
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "baseBranch": {
       "description": "Pushes against git base branch.",

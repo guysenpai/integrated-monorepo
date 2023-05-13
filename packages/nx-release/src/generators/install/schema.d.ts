@@ -1,7 +1,7 @@
 import type { Config } from '@types/conventional-changelog-config-spec';
 
 export interface InstallGeneratorSchema {
-  independent: boolean;
+  syncVersions: boolean;
   baseBranch?: string;
   projects?: string[];
   commitMessageFormat?: string;

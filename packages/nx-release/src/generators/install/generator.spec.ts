@@ -10,7 +10,7 @@ import type { InstallGeneratorSchema } from './schema';
 jest.mock('inquirer');
 
 const defaultOptions: InstallGeneratorSchema = {
-  independent: false,
+  syncVersions: false,
   enforceConventionalCommits: true,
   projects: []
 };
@@ -55,7 +55,7 @@ describe('install generator', () => {
   });
 
   describe('Synced versioning', () => {
-    const options = { ...defaultOptions };
+    const options = { ...defaultOptions, syncVersions: true };
 
     it('should add a workspace project.json to the root of the workspace', async () => {
       await install(tree, options);
@@ -170,7 +170,7 @@ describe('install generator', () => {
   });
 
   describe('Independent versioning', () => {
-    const options = { ...defaultOptions, independent: true };
+    const options = { ...defaultOptions, syncVersions: false };
 
     it('should prompt user to select which projects should be versioned', async () => {
       await install(tree, options);
@@ -188,8 +188,7 @@ describe('install generator', () => {
       expect(lib1.targets).toEqual(
         expect.objectContaining({
           version: {
-            executor: '@guysenpai/nx-release:version',
-            options: expect.objectContaining({ independent: true })
+            executor: '@guysenpai/nx-release:version'
           }
         })
       );
@@ -207,8 +206,7 @@ describe('install generator', () => {
       expect(lib2.targets).toEqual(
         expect.objectContaining({
           version: {
-            executor: '@guysenpai/nx-release:version',
-            options: expect.objectContaining({ independent: true })
+            executor: '@guysenpai/nx-release:version'
           }
         })
       );

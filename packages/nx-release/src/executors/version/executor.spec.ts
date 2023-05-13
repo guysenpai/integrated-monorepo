@@ -68,7 +68,7 @@ describe('version executor', () => {
     push: false,
     remote: 'origin',
     baseBranch: 'main',
-    independent: true,
+    syncVersions: false,
     skipRootChangelog: false,
     skipProjectChangelog: false,
     skipPrivate: false,
@@ -204,7 +204,7 @@ describe('version executor', () => {
 
   describe('--independent (independent mode)', () => {
     it('should version independently a project', async () => {
-      const { success } = await version(options, context);
+      const { success } = await version({ ...options, syncVersions: false }, context);
 
       expect(success).toBe(true);
       expect(mockTryBump).toBeCalledWith(expect.objectContaining({ dependencyRoots: [] }));
@@ -220,7 +220,7 @@ describe('version executor', () => {
         { name: 'lib2', path: '/root/libs/lib2' }
       ]);
 
-      const { success } = await version({ ...options, trackDeps: true }, context);
+      const { success } = await version({ ...options, syncVersions: false, trackDeps: true }, context);
 
       expect(success).toBe(true);
       expect(mockTryBump).toBeCalledWith(
@@ -240,7 +240,7 @@ describe('version executor', () => {
     it('should version independently a project with failure dependencies', async () => {
       mockGetDependencyRoots.mockRejectedValue('thrown error');
 
-      const { success } = await version({ ...options, trackDeps: true }, context);
+      const { success } = await version({ ...options, syncVersions: false, trackDeps: true }, context);
 
       expect(success).toBe(false);
       expect(logger.error).toBeCalledWith(expect.stringContaining('Failed to determine dependencies.'));
@@ -252,7 +252,10 @@ describe('version executor', () => {
     });
 
     it('should resolve ${projectName} tagPrefix interpolation', async () => {
-      const { success } = await version({ ...options, tagPrefix: 'custom-tag-prefix/${projectName}-' }, context);
+      const { success } = await version(
+        { ...options, syncVersions: false, tagPrefix: 'custom-tag-prefix/${projectName}-' },
+        context
+      );
 
       expect(success).toBe(true);
       expect(mockCreateTag).toBeCalledWith(expect.objectContaining({ tag: 'custom-tag-prefix/a-2.1.0' }));
@@ -261,7 +264,7 @@ describe('version executor', () => {
     it('should not version if no commits since last release', async () => {
       mockTryBump.mockReturnValue(of(null));
 
-      const { success } = await version(options, context);
+      const { success } = await version({ ...options, syncVersions: false }, context);
 
       expect(success).toBe(true);
       expect(logger.info).toBeCalledWith(expect.stringContaining('Nothing changed since last release.'));
@@ -272,7 +275,7 @@ describe('version executor', () => {
     });
 
     it('should skip changelog generation with --skipProjectChangelog', async () => {
-      const { success } = await version({ ...options, skipProjectChangelog: true }, context);
+      const { success } = await version({ ...options, syncVersions: false, skipProjectChangelog: true }, context);
 
       expect(success).toBe(true);
       expect(mockUpdateChangelog).not.toBeCalled();
@@ -304,7 +307,7 @@ describe('version executor', () => {
     });
 
     it('should commit and tag', async () => {
-      const { success } = await version({ ...options, independent: false }, context);
+      const { success } = await version({ ...options, syncVersions: true }, context);
 
       expect(success).toBe(true);
       expect(mockCreateTag).toBeCalledWith(
@@ -326,7 +329,7 @@ describe('version executor', () => {
     });
 
     it('should update package.json files', async () => {
-      const { success } = await version({ ...options, independent: false }, context);
+      const { success } = await version({ ...options, syncVersions: true }, context);
 
       expect(success).toBe(true);
       expect(mockUpdatePackageJson).toBeCalledTimes(3);
@@ -351,7 +354,7 @@ describe('version executor', () => {
     });
 
     it('should update changelogs', async () => {
-      const { success } = await version({ ...options, independent: false }, context);
+      const { success } = await version({ ...options, syncVersions: true }, context);
 
       expect(success).toBe(true);
       expect(mockUpdateChangelog).toBeCalledTimes(3);
@@ -376,7 +379,7 @@ describe('version executor', () => {
     });
 
     it('should skip root changelog generation with --skipRootChangelog', async () => {
-      const { success } = await version({ ...options, independent: false, skipRootChangelog: true }, context);
+      const { success } = await version({ ...options, syncVersions: true, skipRootChangelog: true }, context);
 
       expect(success).toBe(true);
       expect(mockUpdateChangelog).toBeCalledTimes(2);
@@ -395,7 +398,7 @@ describe('version executor', () => {
     });
 
     it('should skip project changelog generation with --skipProjectChangelog', async () => {
-      const { success } = await version({ ...options, independent: false, skipProjectChangelog: true }, context);
+      const { success } = await version({ ...options, syncVersions: true, skipProjectChangelog: true }, context);
 
       expect(success).toBe(true);
       expect(mockUpdateChangelog).toBeCalledTimes(1);
@@ -410,7 +413,7 @@ describe('version executor', () => {
     it('should not version if no commits since last release', async () => {
       mockTryBump.mockReturnValue(of(null));
 
-      const { success } = await version({ ...options, independent: false }, context);
+      const { success } = await version({ ...options, syncVersions: false }, context);
 
       expect(success).toBe(true);
       expect(logger.info).toBeCalledWith(expect.stringContaining('Nothing changed since last release.'));

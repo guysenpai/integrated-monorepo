@@ -54,7 +54,7 @@ export function tryBump({
   releaseType,
   preid,
   tagVersionPrefix,
-  independent,
+  syncVersions,
   allowEmptyRelease,
   skipCommitTypes,
   skipProject,
@@ -67,7 +67,7 @@ export function tryBump({
   releaseType?: ReleaseType;
   preid?: string;
   tagVersionPrefix?: string | null;
-  independent: boolean;
+  syncVersions: boolean;
   allowEmptyRelease?: boolean;
   skipCommitTypes: string[];
   skipProject?: boolean;
@@ -114,7 +114,7 @@ export function tryBump({
         releaseType,
         tagVersionPrefix,
         skipCommitTypes,
-        independent,
+        syncVersions,
         projectName,
         preid
       });
@@ -329,7 +329,7 @@ function _getProjectVersion({
  * @param param.releaseType
  * @param param.skipCommitTypes
  * @param param.tagVersionPrefix
- * @param param.independent
+ * @param param.syncVersions
  * @param param.projectName
  * @param param.preid
  * @returns
@@ -342,7 +342,7 @@ function _getDependencyVersions({
   releaseType,
   skipCommitTypes,
   tagVersionPrefix,
-  independent,
+  syncVersions,
   projectName,
   preid
 }: {
@@ -352,14 +352,14 @@ function _getDependencyVersions({
   releaseType?: ReleaseType;
   skipCommitTypes: string[];
   tagVersionPrefix?: string | null;
-  independent: boolean;
+  syncVersions: boolean;
   projectName: string;
   preid: string;
 }): Observable<Version[]> {
   return forkJoin(
     dependencyRoots.map(({ path: projectRoot, name: dependencyName }) => {
       // Get dependency version changes since last project version
-      const tagPrefix = formatTagPrefix({ tagVersionPrefix, projectName: dependencyName, independent });
+      const tagPrefix = formatTagPrefix({ tagVersionPrefix, projectName: dependencyName, syncVersions });
       const { lastVersion$, commits$ } = _getProjectVersion({
         tagPrefix,
         projectRoot,

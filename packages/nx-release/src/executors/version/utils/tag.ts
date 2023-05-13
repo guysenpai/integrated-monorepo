@@ -5,17 +5,17 @@ import { createTemplateString } from './template-string';
  *
  * @param param.tagVersionPrefix
  * @param param.projectName
- * @param param.independent
+ * @param param.syncVersions
  * @returns
  */
 export function formatTagPrefix({
   tagVersionPrefix,
   projectName,
-  independent
+  syncVersions
 }: {
   tagVersionPrefix?: string | null;
   projectName: string;
-  independent: boolean;
+  syncVersions: boolean;
 }): string {
   if (tagVersionPrefix != null) {
     return createTemplateString(tagVersionPrefix, {
@@ -24,7 +24,7 @@ export function formatTagPrefix({
     });
   }
 
-  if (!independent) {
+  if (syncVersions) {
     return 'v';
   }
 

@@ -43,7 +43,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -98,7 +98,7 @@ describe('tryBump', () => {
           { name: 'dep2', path: '/libs/dep2' }
         ],
         tagPrefix: 'v',
-        independent: false,
+        syncVersions: true,
         skipCommitTypes: [],
         projectName: ''
       })
@@ -135,7 +135,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -161,7 +161,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -190,7 +190,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -219,7 +219,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -247,7 +247,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -272,7 +272,7 @@ describe('tryBump', () => {
 
     await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -297,7 +297,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -321,7 +321,7 @@ describe('tryBump', () => {
 
     const newVersion = await lastValueFrom(
       tryBump({
-        independent: true,
+        syncVersions: false,
         changelogPreset: 'angular',
         projectRoot: '/libs/demo',
         tagPrefix: 'v',
@@ -347,7 +347,7 @@ describe('tryBump', () => {
 
       const newVersion = await lastValueFrom(
         tryBump({
-          independent: true,
+          syncVersions: false,
           changelogPreset: 'angular',
           projectRoot: '/libs/demo',
           tagPrefix: 'v',
@@ -367,7 +367,7 @@ describe('tryBump', () => {
 
       const newVersion = await lastValueFrom(
         tryBump({
-          independent: true,
+          syncVersions: false,
           changelogPreset: 'angular',
           projectRoot: '/libs/demo',
           tagPrefix: 'v',
@@ -389,7 +389,7 @@ describe('tryBump', () => {
 
       const newVersion = await lastValueFrom(
         tryBump({
-          independent: false,
+          syncVersions: true,
           changelogPreset: 'angular',
           projectRoot: '/libs/demo',
           dependencyRoots: [{ name: 'dep1', path: '/libs/dep1' }],
