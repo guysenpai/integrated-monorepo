@@ -1,5 +1,6 @@
-import type { ExecutorContext, ProjectConfiguration, ProjectsConfigurations } from '@nrwl/devkit';
 import { resolve } from 'path';
+
+import type { ExecutorContext, ProjectConfiguration, ProjectsConfigurations } from '@nrwl/devkit';
 
 /**
  * Get project configuration from executor context
@@ -26,7 +27,6 @@ export function getProject(context: ExecutorContext): ProjectConfiguration {
  */
 export function getProjectRoots(workspaceRoot: string, workspace?: ProjectsConfigurations): string[] {
   const projects = Object.values(workspace?.projects ?? {});
-  console.log(projects);
 
   if (projects.length === 0) {
     throw new Error('No projects found in workspace');
