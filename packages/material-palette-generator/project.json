@@ -1,0 +1,48 @@
+{
+  "name": "material-palette-generator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/material-palette-generator/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/material-palette-generator",
+        "main": "packages/material-palette-generator/src/index.ts",
+        "tsConfig": "packages/material-palette-generator/tsconfig.lib.json",
+        "assets": ["packages/material-palette-generator/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "./dist/packages/nx-release:npm",
+      "options": {
+        "access": "public",
+        "targetBuild": "build",
+        "dryRun": "${dryRun}"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/material-palette-generator/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/material-palette-generator/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

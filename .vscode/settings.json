@@ -1,4 +1,4 @@
 {
-  "conventionalCommits.scopes": ["is-even", "is-odd", "nx-release"],
+  "conventionalCommits.scopes": ["is-even", "is-odd", "nx-release", "m2-palette-generator"],
   "eslint.validate": ["json"]
 }

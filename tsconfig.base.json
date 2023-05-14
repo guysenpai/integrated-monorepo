@@ -19,6 +19,7 @@
     "paths": {
       "@guysenpai/is-even": ["packages/is-even/src/index.ts"],
       "@guysenpai/is-odd": ["packages/is-odd/src/index.ts"],
+      "@guysenpai/material-palette-generator": ["packages/material-palette-generator/src/index.ts"],
       "@guysenpai/nx-release": ["packages/nx-release/src/index.ts"]
     }
   },
